@@ -7,6 +7,6 @@ app.listen(PORT,()=>{
     console.log(`Server is running on Port ${PORT}`);
 });
 
-app.get("/",(req,res)=>{
-    res.send("Hello, world!")
+app.get("/mensage/:id",(req,res)=>{
+    res.send(`id da mensagem: ${req.params.id}`)
 })
