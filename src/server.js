@@ -1,13 +1,13 @@
-const express=require("express");
-const app= express();
+// app.js
+import express from 'express';
+import routes from './routes/index.js';
+
+const app = express();
+
 app.use(express.json());
+app.use(routes);
 
-app.post("/users",(req,res)=>{
-    const{name,email,password}=req.body
-    res.json({name,email,password})
-})
-const PORT=3333;
-
-app.listen(PORT,()=>{
-    console.log(`Server is running on Port ${PORT}`);
+const PORT = 3333;
+app.listen(PORT, () => {
+  console.log(`Server is running on Port ${PORT}`);
 });
