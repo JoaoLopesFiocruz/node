@@ -1,11 +1,8 @@
 // routes/users.routes.js
 import { Router } from 'express';
+import UserControler from '../controllers/UsersController.js'
 
 const usersRoutes = Router();
 
-usersRoutes.post('/', (req, res) => {
-  const { name, email, password } = req.body;
-  res.json({ name, email, password });
-});
-
+usersRoutes.post('/',UserControler.create);
 export default usersRoutes;
