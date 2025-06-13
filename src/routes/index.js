@@ -1,9 +1,9 @@
-import { Router } from 'express';
-import usersRoutes from './users.routes.js';
+const Router = require('express');
+const usersRoutes = require('./users.routes');
 
 const routes = Router();
 
 // Definindo o prefixo '/user' para as rotas de usuário
 routes.use('/users', usersRoutes);
 
-export default routes;
+module.exports = routes;

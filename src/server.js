@@ -1,13 +1,17 @@
 // app.js
-import routes from './routes/index.js';
-import appError from './utils/AppError.js';
-import express from 'express';
+const express = require('express');
+const routes = require('./routes/index');
+const AppError = require('./utils/AppError');
+const database = require('./database/sqlite/index');
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(routes);
+
+database();
+
 app.use(((err,req, res, next) => {
-  if (err instanceof appError) {
+  if (err instanceof AppError) {
     return res.status(err.statusCode).json({
       status: 'error',
       message: err.message,

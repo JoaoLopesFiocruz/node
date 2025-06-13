@@ -7,4 +7,4 @@ class appError{
         this.statusCode=statusCode
     }
 }
-export default appError
+module.exports= appError
