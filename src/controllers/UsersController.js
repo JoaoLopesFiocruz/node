@@ -1,14 +1,15 @@
-import appError from '../utils/AppError.js';
-class UserController{
-    static create(input,response){
-        const { name, email, password } = input.body;
+const appError = require('../utils/AppError');
 
-        if(!name){
-            throw new appError("o nome é obrigatório");
+class UserController {
+    static create(req, res) {
+        const { name, email, password } = req.body;
+
+        if (!name) {
+            throw new appError("O nome é obrigatório");
         }
 
-        response.status(201).json({ name, email, password});
+        res.status(201).json({ name, email, password });
     }
 }
 
-export default UserController
+module.exports = UserController;
