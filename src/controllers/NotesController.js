@@ -32,7 +32,7 @@ class NotesController{
         const {id}=req.params
         const note=await knex("notes").where({id}).first();
         const tags= await knex("tags").where({note_id:id}).orderBy("name");
-        const links= await knex("links").where({note_id:id}).orderBy("crated_at");
+        const links= await knex("links").where({note_id:id}).orderBy("created_at");
         return res.json({
             ...note,
             tags,
@@ -52,7 +52,17 @@ class NotesController{
         if(tags){
             const filterTags=tags.split(",").map(tag=>tag.trim())
             console.log(filterTags)
-            notes=await knex("tags").whereIn("name",filterTags)
+            notes=await knex("tags")
+            .select([
+                "notes.id",
+                "notes.title",
+                "notes.user_id"
+            ])
+            .where("notes.user_id", user_id)
+            .whereLike("notes.title",`%${title}%`)
+            .whereIn("name",filterTags)
+            .innerJoin("notes","notes.id","tags.note_id")
+            .orderBy("notes.title")
         }
         else{
             notes= await knex("notes")
